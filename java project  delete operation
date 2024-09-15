@@ -1,0 +1,83 @@
+class BST_Java {
+    class Node { // Class For Creating Node Structure
+        int key; // Taking Int Value From Main Function
+        Node left, right;
+
+        public Node(int info){ // Creating Public Node For Access
+            key = info;
+            left = right = null;
+        }
+    }
+
+    Node root; // Creating Root Node
+    BST_Java(){ // Constructor For Binary Search Tree
+        root = null; // We Will Return Node Here
+    }
+
+    void insert(int key){ // Function To Insert A Node To BST
+        root = inRecur(root, key);
+    }
+
+    Node inRecur(Node root, int key){ // Function To Recursively Insert Element
+        if (root == null){ // Condition To Check Empty Tree
+            root = new Node(key);
+            return root; // We Will Return Node Root
+        }
+        if (key < root.key) // Inserting Element In The Left
+            root.left = inRecur(root.left, key);
+        else if (key > root.key) // Inserting Element In The Right
+            root.right = inRecur(root.right, key);
+        return root; // Returning The Pointer
+    }
+
+    void del(int key) { // Function To Delete A Node
+        root = delr(root, key); // Accessing Public Node
+    }
+
+    Node delr(Node root, int key){ // Recusive Deleting Function
+        if (root == null) // If The Tree Is Empty
+            return root;
+
+
+        if (key < root.key)
+            root.left = delr(root.left, key); // Deleting From Left Tree
+        else if (key > root.key)
+            root.right = delr(root.right, key); // Deleting From Right Tree
+        else  { // Condition For Nodes With One Child
+            if (root.left == null)
+                return root.right;
+            else if (root.right == null)
+                return root.left;
+        }
+        return root;
+    }
+
+    void print(){ // Function To Print The BST
+        Recurprint(root); // Performing Inorder Traversal
+    }
+    void Recurprint(Node root){ // Recuersive Print Function To Reduce Time Complexity
+        if (root != null) { // Checking Root Status
+            Recurprint(root.left);
+            System.out.print(root.key + "->");
+            Recurprint(root.right);
+        }
+    }
+
+}
+public class Main{
+    public static void main(String[] args)  {
+        BST_Java tree = new BST_Java(); // Making Binary Search Tree Object
+        // Inserting Elements Into The Tree
+        tree.insert(10);
+        tree.insert(5);
+        tree.insert(3);
+        tree.insert(15);
+        System.out.print("The Created Binary Search Tree: ");
+        tree.print(); // Printing The Entire BST
+
+        System.out.println();
+        System.out.print("The New BST After Deletion: ");
+        tree.del(5); // Deleting The Element
+        tree.print(); // Printing The Entire Tree After Deletion
+     }
+}
