@@ -1,0 +1,56 @@
+class BinaryST_Java {
+    class Node { // Class Node For Creating Node Structure
+        int key; // Taking Int Data From The Users
+        Node left, right;
+
+        public Node(int info){ // We will Not Create Private Node Root
+            key = info; // Inserting Int Data
+            left = right = null;
+        }
+    }
+     Node root; // Creating Root Node
+    BinaryST_Java(){ // Constructor For Binary Search Tree
+        root = null;
+    }
+
+    void insert(int key){ // Function To Insert A Node To BST
+        root = inRecur(root, key); // Creating New Node
+    }
+
+    Node inRecur(Node root, int key){ // Function To Recursively Insert Element
+        if (root == null){ // Condition To Check Empty Tree To Return Null
+            root = new Node(key); // Inserting Int Data To Node
+            return root; // We Will Return Root Here
+        }
+        if (key < root.key) // Inserting Element In The Left
+            root.left = inRecur(root.left, key); // Making Left Subtree
+        else if (key > root.key) // Inserting Element In The Right
+            root.right = inRecur(root.right, key);
+        return root; // We Will Return Root To Pointer
+    }
+
+    void print(){ // Function To Print The BST
+        Recurprint(root);
+    }
+    void Recurprint(Node root){ // Recuersive Print Function To Reduce Time Complexity
+        if (root != null) { // Checking Root Status
+            Recurprint(root.left); // Performing Inorder Traversal
+            System.out.print(root.key + "->");
+            Recurprint(root.right);
+        }
+    }
+
+}
+public class Main{
+    public static void main(String[] args)  {
+        BinaryST_Java tree = new BinaryST_Java(); // Making Binary Search Tree Object
+        // Inserting Elements Into The Tree
+        tree.insert(10);
+        tree.insert(5);
+        tree.insert(3);
+        tree.insert(2);
+        tree.insert(15);
+        System.out.println("The Created Binary Search Tree: ");
+        tree.print(); // Printing The Entire BST
+     }
+}
